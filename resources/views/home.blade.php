@@ -26,11 +26,11 @@
                             {!! $sub->render() !!}
                         </div>
                         <div role="tabpanel" class="tab-pane" id="messages">
-                            <h4>Total Solutions Submitted:21031</h4>
-                            <h4>Total Solutions Accepted:124</h4>
-                            <h4>Compile Error:1231</h4>
-                            <h4>Memory Limit Exceeded:311</h4>
-                            <h4>Wrong Answer:31031</h4>
+                            <h4>Total Solutions Submitted: {{$summary}}</h4>
+                            <h4>Total Solutions Accepted: {{$correct}}</h4>
+                            <h4>Compile Error: {{$compile}}</h4>
+                            <h4>Time Limit Exceeded: {{$timelimit}}</h4>
+                            <h4>Wrong Answer: {{$wrong}}</h4>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="settings">
                             <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -117,6 +117,15 @@
 });
                       </script>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-14 col-md-offset-0">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h3><i class="fa fa-bar-chart" aria-hidden="true"></i> Problem Summary</h3></div>
+                <div class="panel-body">
+
                 </div>
             </div>
         </div>

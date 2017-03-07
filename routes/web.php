@@ -18,4 +18,4 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'SubmissionController@live');
-Route::get('/chart/data', 'SubmissionController@showGraph');
+Route::get('/problem/{id}','ProblemController@index');

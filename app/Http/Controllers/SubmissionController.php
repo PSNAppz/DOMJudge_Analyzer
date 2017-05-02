@@ -8,6 +8,9 @@ use DB;
 use App\languages as lan;
 use App\Judge;
 use App\Problem;
+use App\FuzzYLogic as FL;
+use App\Team as Tm;
+use Chartist;
 
 class SubmissionController extends Controller
 {
@@ -26,6 +29,12 @@ class SubmissionController extends Controller
             ->join('language as b', 'a.langid', '=', 'b.langid')
             ->groupBy('b.langid')
             ->get();
+            $i=0;$Lang;
+            foreach($results as $r){
+                $Lang[$i]=lan::where('langid',$r->langid)->first();
+                $i++;
+            }
+            $collect = collect($Lang);
 
             $summary=Subs::count();
             $correct=Judge::where('result','correct')->count();
@@ -41,18 +50,36 @@ class SubmissionController extends Controller
             ->dimensions(1000,500)
             ->responsive(false);
 
-            $chart1 = Charts::database($results,'bar','plottablejs')
+            $chart1 = Charts::database($results,'bar','fusioncharts')
             ->title("")
             ->width(1000)
             ->elementLabel('Language Submissions')
             ->values($results->pluck('count(*)'))
-            ->labels($results->pluck('langid'))
+            ->labels($collect->pluck('name'))
             ->responsive(false);
 
             $problems = Problem::get();
+            
+            $teamnames=Tm::where('categoryid','!=',1)->get();
+            $mostsolved=FL::groupBy('problem')
+            ->orderBy('count', 'desc')
+            ->get(['problem', DB::raw('count(problem) as count')])
+            ->take(5);
+
+            $top;
+            $count;
+            $i=0;
+
+            foreach($mostsolved as $m){
+                $j=0;
+                $top[$i]=Problem::where('probid',$m->problem)->get();
+                $count[$i]=$m->count;
+                $i++;
+            }
 
             return view('home')->withChart1($chart1)->withReal($real)->withSummary($summary)->withRun($run)
             ->withWrong($wrong)->withCompile($compile)->withCorrect($correct)->withTimelimit($timelimit)
-            ->withChart2($chart2)->withProblems($problems);
+            ->withChart2($chart2)->withProblems($problems)->withTop($top)->withCount($count)->withTeamnames($teamnames);
         }
+
 }

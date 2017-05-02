@@ -163,6 +163,8 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         ConsoleTVs\Charts\ChartsServiceProvider::class,
+        Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
+        BrianFaust\Chartist\ServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -227,6 +229,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
+        'Lava' => Khill\Lavacharts\Laravel\LavachartsFacade::class,
+        'Chartist' => BrianFaust\Chartist\Facades\Chartist::class,
 
     ],
 

@@ -19,3 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'SubmissionController@live');
 Route::get('/problem/{id}','ProblemController@index');
+Route::get('/test','ProblemController@scatter');
+Route::get('/test2','ProblemController@test');
+Route::get('/prob','ProblemController@ProbAnalytics');
+Route::get('/team/{id}','ProblemController@teamAnalytics');
